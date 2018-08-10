@@ -8,7 +8,7 @@ const CannonBase = (props) => {
         strokeWidth: '2px'
     };
 
-    const base = 80;
+    // const base = 80;
     const halfBase = 40;
     const height = 40;
     const negativeHeight = height * -1;
