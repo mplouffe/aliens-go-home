@@ -34,7 +34,7 @@ const Title = () => {
             y: -780
         },
         initialControlPoint: {
-            x: 125,
+            x: -125,
             y: -800
         },
         endingControlPoint: {
