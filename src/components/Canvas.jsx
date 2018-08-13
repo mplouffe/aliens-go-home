@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { signIn } from 'auth0-web';
+
 import Sky from './Sky';
 import Ground from './Ground';
 import CannonPipe from './CannonPipe';
@@ -10,6 +12,7 @@ import FlyingObject from './FlyingObject';
 import Heart from './Heart';
 import StartGame from './StartGame';
 import Title from './Title';
+import Login from './Login';
 
 const Canvas = (props) => {
     const gameHeight = 1200;
@@ -36,6 +39,7 @@ const Canvas = (props) => {
             {!props.gameState.started && 
                 <g>
                     <StartGame onClick={() => props.startGame()} />
+                    <Login authenticate={signIn} />
                     <Title />
                 </g>
             }
@@ -69,7 +73,6 @@ Canvas.propTypes = {
             id: PropTypes.number.isRequired
         })).isRequired
     }).isRequired,
-    trackMouse: PropTypes.func.isRequired,
     startGame: PropTypes.func.isRequired
 };
 
