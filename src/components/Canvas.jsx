@@ -16,16 +16,6 @@ import Leaderboard from './Leaderboard';
 
 const Canvas = (props) => {
     const gameHeight = 1200;
-    const leaderboard = [
-        {id: 'd4', maxScore: 82, name: 'Charles Babbage', picture: 'http://www.timelineindex.com/imagesThumb/255_1584.png'},
-        {id: 'a1', maxScore: 235, name: 'Konrad Zuse', picture: 'https://3.bp.blogspot.com/-new25rlWNwo/U8MSEr_ZXhI/AAAAAAAAGRE/raJqSeYpYnU/s60-c/Heinrich+Focke.png'},
-        {id: 'c3', maxScore: 99, name: 'Kurt Godel', picture: 'https://www.computerhope.com/cdn/people/kurt_godel.jpg'},
-        {id: 'b2', maxScore: 129, name: 'J. Presper Eckert', picture: 'https://www.computerhope.com/cdn/people/allen_dumont.jpg'},
-        {id: 'e5', maxScore:34, name: 'Robert Noyce', picture: 'https://dgalywyr863hv.cloudfront.net/pictures/clubs/21145/453306/2/medium.jpg'},
-        {id: 'f6', maxScore: 153, name: 'Alan Turing', picture: 'https://cbsnews3.cbsistatic.com/hub/i/r/2011/02/19/33f579f5-a644-11e2-a3f0-029118418759/thumbnail/60x60/33b306e9baafb6ee4fdad431577cfca4/turing.jpg'},
-        {id: 'g7', maxScore: 55, name: 'Steve Jobs', picture: 'https://cbsnews2.cbsistatic.com/hub/i/r/2011/10/06/957adcbf-a644-11e2-a3f0-029118418759/thumbnail/60x60/88a90eba2169e457b525af9efcda9fb0/frontstevejobs_1.jpg'},
-        {id: 'h8', maxScore: 146, name: 'Bill Gates', picture: 'https://lh3.googleusercontent.com/-29JO1Z-O2RA/AAAAAAAAAAI/AAAAAAAAABg/AGwh8f0ULIg/s60-p-no-il/photo.jpg'}
-    ];
 
     const viewBox = [window.innerWidth / -2, 100 - gameHeight, window.innerWidth, gameHeight];
     return (
@@ -50,7 +40,7 @@ const Canvas = (props) => {
             {!props.gameState.started && 
                 <g>
                     <StartGame onClick={() => props.startGame()} />
-                    <Leaderboard currentPlayer={leaderboard[6]} authenticate={signIn} leaderboard={leaderboard} />
+                    <Leaderboard currentPlayer={props.currentPlayer} authenticate={signIn} leaderboard={props.players} />
                     <Title />
                 </g>
             }
@@ -84,7 +74,24 @@ Canvas.propTypes = {
             id: PropTypes.number.isRequired
         })).isRequired
     }).isRequired,
-    startGame: PropTypes.func.isRequired
+    startGame: PropTypes.func.isRequired,
+    currentPlayer: PropTypes.shape({
+        id: PropTypes.string.isRequred,
+        maxScore: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        picture: PropTypes.string.isRequired
+    }),
+    players: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        maxScore: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        picture: PropTypes.string.isRequired
+    }))
+};
+
+Canvas.defaultProps = {
+    currentPlayer: null,
+    players: null
 };
 
 export default Canvas;
