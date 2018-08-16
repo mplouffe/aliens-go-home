@@ -22,6 +22,7 @@ const Canvas = (props) => {
         <svg
             id="aliens-go-home-canvas"
             preserveAspectRatio="xMidYMid"
+            onClick={props.shoot}
             onMouseMove={props.trackMouse}
             viewBox={viewBox}
         >
@@ -32,10 +33,15 @@ const Canvas = (props) => {
             </defs>
             <Sky />
             <Ground />
+            {props.gameState.cannonBalls.map(cannonBall => (
+                <CannonBall
+                    key={cannonBall.id}
+                    position={cannonBall.position}
+                />
+            ))}
             <CannonPipe rotation={props.angle} />
             <CannonBase />
             <Heart position={{x: -300, y: 35 }} />
-            <CannonBall position={{x: 0, y: -100 }} />
             <CurrentScore score={15} />
             {!props.gameState.started && 
                 <g>
@@ -72,6 +78,13 @@ Canvas.propTypes = {
                 y: PropTypes.number.isRequired
             }).isRequired,
             id: PropTypes.number.isRequired
+        })).isRequired,
+        cannonBalls: PropTypes.arrayOf(PropTypes.shape({
+            position: PropTypes.shape({
+                x: PropTypes.number.isRequired,
+                y: PropTypes.number.isRequired
+            }).isRequired,
+            id: PropTypes.number.isRequired
         })).isRequired
     }).isRequired,
     startGame: PropTypes.func.isRequired,
@@ -86,7 +99,8 @@ Canvas.propTypes = {
         maxScore: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
         picture: PropTypes.string.isRequired
-    }))
+    })),
+    shoot: PropTypes.func.isRequired
 };
 
 Canvas.defaultProps = {
